@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* General page styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color:black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    background-image: url(coronapic2.png);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+h2, h3 {
+    color:black;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 80px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #68cdca, -5px -5px 10px #ffffff;
+    width: 400px;
+    height:250px;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input[type="email"]:focus, input[type="password"]:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    color: #dc3545; /* Red for error */
+}
+.hidden {
+    display: none;
+   
+}
+
+
+#dashboard {
+    text-align: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow:  5px 5px 10px #68cdca, -5px -5px 10px #ffffff;
+    width: 300px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Slots styling */
+#slotsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.slot {
+    padding: 10px;
+    background-color: #d4edda; /* Green for available slots */
+    border: 2px solid #28a745;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 120px;
+    text-align: center;
+}
+
+.slot:hover {
+    background-color: #c3e6cb;
+}
+
+.slot.selected {
+    background-color: #ffeeba; /* Yellow for selected slot */
+    border-color: #ffc107;
+}
+
+.slot.booked {
+    background-color: #f8d7da; /* Red for booked slots */
+    border-color: #dc3545;
+    cursor: not-allowed;
+}
+
+#bookSlotButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#bookSlotButton:hover {
+    background-color: #218838;
+}
+.bbb{
+    color: #333;
+ padding-left: 20px;
+    text-align: left;
+
+}
+#cc{
+    display: flex;
+    
+}
+#dashboard{
+    width:500px;
+}
+#profileSection{
+   
+    height:400px;
+    width:600px
+}
+.abc{
+    display: flex;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+.ddd{
+    height:50px;
+    color:#28a745;
+    width: 300px;
+    padding-bottom: 30px;
+    border:red solid;
+    border-radius: 5px;
+    font-weight: 20px;
+
+}
+
+    
+
+.mmm{
+    width:490px;
+    height:300px
+}
+
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div id="loginContainer">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <div id="cc">
+            <button style="margin-right: 90px; width:80"   type="submit">Login</button>
+            </div>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <!-- Dashboard (hidden by default, shown after login) -->
+    <div id="dashboard" class="hidden">
+        <h2>Welcome,<span id="userNameDisplay"></span>!</h2>
+        <p>You have successfully logged in.</p>
+        <button id="logoutButton" onclick="demo4()">Logout</button>
+        
+        <!-- Additional Features after Login -->
+        <h3>Available Features:</h3>
+        <ul>
+            <li><a href="#profile" id="profileLink">View Profile</a></li>
+            <li><a href="#settings" id="settingsLink">Account Settings</a></li>
+            <li><a href="#help" id="helpLink">Help and Support</a></li>
+        </ul>
+
+        <!-- Slots Section -->
+        <h3>Available Slots:</h3>
+        <div id="slotsContainer"></div>
+        <button id="bookSlotButton" class="hidden">Book Slot</button>
+    </div>
+
+    <div id="profileSection" class="hidden">
+        <h2>Profile</h2>
+        <form id="profileForm">
+            <label for="profileName">Name:</label> 
+             <input class="ddd" type="text" id="profileName" value="pranita maity" required>
+            <label for="profileEmail">Email:</label>
+            <input class="ddd" type="text" id="profileEmail" value="gecgovthelp81@gmail.com" required>
+
+            <label for="profilePhone">Phone:</label>
+            <input class="ddd" type="text" id="profilePhone" value="7077379853">
+            <div class="abc">
+                <button style="margin-right: 70px;" type="submit">Update profile </button>
+                <button style="background-color: red;" id="backToDashboardFromProfile">Back</button>
+           
+            </div>
+            
+        </form>
+        
+    </div>
+
+    <div id="settingsSection" class="hidden">
+        <h2>Settings</h2>
+        <form id="settingsForm">
+            <label for="currentPassword">Current Password:</label>
+            <input type="password" id="currentPassword" required>
+
+            <label for="newPassword">New Password:</label>
+            <input  type="password" id="newPassword" required>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input  type="password" id="confirmPassword" required>
+           <div class="abc">
+            <button style="margin-right: 70px;" type="submit">Change Password</button>
+            <button style="background-color: red;" id="backToDashboardFromSettings">Back to Dashboard</button>
+            </div>
+        </form>
+        
+    </div>
+
+    <div id="helpSection" class="hidden">
+        <h4 >Help & Support</h4>
+        <h5>FAQs</h5>
+        <p><strong>Q:</strong> How do I reset my password?<br><strong>A:</strong> Go to settings and change your password.</p>
+        <p><strong>Q:</strong> How do I contact support?<br><strong>A:</strong> You can reach us at sumankumarpradhan81@gmail.com</p>
+        
+        <h3>Contact Us</h3>
+        <form id="helpForm">
+            <label for="helpMessage">Your Message:</label>
+            <textarea class="mmm" id="helpMessage" rows="4" placeholder="Describe your issue here..."></textarea>
+            <div class="abc">
+            <button onclick="demo33()" style="margin-right: 70px;" type="submit">Send Message</button>
+            <button style="background-color: red;"   id="backToDashboardFromHelp">Back to Dashboard</button>
+            </div>
+        </form>
+        
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();  // Prevent form submission
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("message");
+    const loginContainer = document.getElementById("loginContainer");
+    const dashboard = document.getElementById("dashboard");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+
+    // Simulating a login request
+    if (email === "gecgovthelp81@gmail.com" && password === "Govt@2453") {
+        message.textContent = "login successfull";
+
+        // Display the dashboard and hide the login form
+        loginContainer.style.display = "none";
+        dashboard.classList.remove("hidden");
+        userNameDisplay.textContent = email;  // Display user's email as a welcome message
+
+        // Fetch available slots after login
+        fetchSlots();
+    } else {
+        message.style.color = "#dc3545";  // Red color for error
+        message.textContent = "Invalid email or password. Please try again.";
+    }
+});
+
+
+
+document.getElementById("profileLink").addEventListener("click", function() {
+    showSection("profileSection");
+});
+
+document.getElementById("backToDashboardFromProfile").addEventListener("click", function() {
+    showSection("dashboard");
+});
+
+// Settings Section
+document.getElementById("settingsLink").addEventListener("click", function() {
+    showSection("settingsSection");
+});
+
+document.getElementById("backToDashboardFromSettings").addEventListener("click", function() {
+    showSection("dashboard");
+});
+
+// Help Section
+document.getElementById("helpLink").addEventListener("click", function() {
+    showSection("helpSection");
+});
+
+document.getElementById("backToDashboardFromHelp").addEventListener("click", function() {
+    showSection("dashboard");
+});
+
+
+document.getElementById("logoutButton").addEventListener("click", function() {
+    document.getElementById("loginContainer").style.display = "block";
+    document.getElementById("dashboard").classList.add("hidden");
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+});
+
+// Function to toggle between sections
+function showSection(sectionId) {
+    const sections = ["dashboard", "profileSection", "settingsSection", "helpSection"];
+    sections.forEach(section => {
+        document.getElementById(section).classList.add("hidden");
+    });
+    document.getElementById(sectionId).classList.remove("hidden");
+}
+
+// Handle form submissions for profile, settings, and help
+document.getElementById("profileForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    alert("Profile updated successfully!");
+});
+
+document.getElementById("settingsForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (newPassword === confirmPassword){
+
+    }
+});
+
+
+
+
+
+
+// Fetch available slots
+function fetchSlots() {
+    const slots = [
+        { id: 1, time: "10:00 AM", available: true },
+        { id: 2, time: "11:00 AM", available: true },
+        { id: 3, time: "12:00 PM", available: false },
+        { id: 4, time: "01:00 PM", available: true }
+    ];
+
+    const slotsContainer = document.getElementById("slotsContainer");
+    slotsContainer.innerHTML = ''; // Clear previous slots
+
+    slots.forEach(slot => {
+        const slotDiv = document.createElement('div');
+        slotDiv.classList.add('slot');
+        slotDiv.textContent = slot.time;
+
+        if (slot.available) {
+            slotDiv.addEventListener('click', function() {
+                selectSlot(slot.id, slotDiv);
+            });
+        } else {
+            slotDiv.classList.add('booked');
+            slotDiv.textContent += " - Booked";
+        }
+
+        slotsContainer.appendChild(slotDiv);
+    });
+}
+
+let selectedSlotId = null;
+
+// Handle slot selection
+function selectSlot(slotId, slotDiv) {
+    const slots = document.querySelectorAll('.slot');
+    slots.forEach(slot => slot.classList.remove('selected'));
+
+    selectedSlotId = slotId;
+    slotDiv.classList.add('selected');
+
+    document.getElementById('bookSlotButton').classList.remove('hidden');
+}
+
+// Handle booking the selected slot
+document.getElementById('bookSlotButton').addEventListener('click', function() {
+    if (selectedSlotId !== null) {
+        alert(`Slot with ID ${selectedSlotId} booked successfully!`);
+        document.getElementById('bookSlotButton').classList.add('hidden');
+        // Simulate marking the slot as booked (in a real app, send this to the server)
+        fetchSlots();
+    }
+});
+
+// Logout button functionality
+document.getElementById("logoutButton").addEventListener("click", function() {
+    const loginContainer = document.getElementById("loginContainer");
+    const dashboard = document.getElementById
+});
+
+
+function demo4(){
+    window.location.href="sloat.html";
+}
+function demo33(){
+    window.location.href="mail.html";
+}
+
+
+</script>
+    
+</body>
+</html>

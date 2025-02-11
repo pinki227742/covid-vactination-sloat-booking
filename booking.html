@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Vaccination Slot Booking</title>
+    <style>
+        /* Basic page styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: black;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background-image: url(coronapic2.png);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size:cover;
+        }
+
+        h1 {
+            color:black;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color:black;
+            margin-bottom: 10px;
+        }
+
+        /* Slot container */
+        .slots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        /* Styling for individual slot */
+        .slot {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #d4edda; /* Light green for available slots */
+            border: 2px solid #28a745;
+            font-size: 16px;
+            width: 120px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .slot:hover {
+            background-color: #c3e6cb;
+            transform: translateY(-5px);
+        }
+
+        .slot.selected {
+            background-color: #ffeeba;
+            border-color: #ffc107;
+        }
+
+        /* Styling for booked slots */
+        .slot.booked {
+            background-color: #f8d7da; /* Light red for booked slots */
+            border-color: #dc3545;
+            cursor: not-allowed;
+        }
+
+        /* Input and button styling */
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 250px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Add a container for the booking form */
+        .booking-form {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #68cdca, -5px -5px 10px #ffffff;
+                        display: inline-block;
+            
+        }
+    </style>
+     
+</head>
+<body>
+
+    <h1>COVID-19 Vaccination Slot Booking</h1>
+
+    <div>
+        <h3>Available Slots:</h3>
+        <div id="slots" class="slots"></div>
+    </div>
+
+    <div class="booking-form">
+        <h3>Book Slot:</h3>
+        <input type="text" id="userName" placeholder="Enter your name" />
+        <br />
+        <button onclick="demo()">booking now</button>
+        <button id="bookSlotButton">Book Selected Slot</button>
+
+    </div>
+
+    <script>
+        let selectedSlotId = null;
+        function demo(){
+            window.location.href="sloat.html";
+        }
+
+        // Fetch available slots from the backend
+        function fetchSlots() {
+            fetch('http://localhost:5000/slots')  // Replace with actual backend API URL
+                .then(response => response.json())
+                .then(data => {
+                    const slotsContainer = document.getElementById('slots');
+                    slotsContainer.innerHTML = '';  // Clear existing slots
+                    data.forEach(slot => {
+                        const slotDiv = document.createElement('div');
+                        slotDiv.classList.add('slot', 'available');
+                        slotDiv.textContent = `Slot at ${slot[1]}`; // slot[1] = slot_time
+                        slotDiv.onclick = () => selectSlot(slot[0], slotDiv);  // slot[0] = slot_id
+                        slotsContainer.appendChild(slotDiv);
+                    });
+                })
+                .catch(error => console.error('Error fetching slots:', error));
+        }
+
+        // Function to select a slot
+        function selectSlot(slotId, element) {
+            selectedSlotId = slotId;
+            const slots = document.querySelectorAll('.slot');
+            slots.forEach(slot => slot.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+        function getSelectedSlot() {
+    // This is where you'd normally have logic to determine the selected slot
+    // For example, you could check a selected option from a dropdown or radio button group
+    const selectedSlot = document.querySelector('input[name="slot"]:checked'); // Example for radio buttons
+    return selectedSlot ? selectedSlot.value : null;
+}
+
+       // Function to book the selected slot
+function bookSlot() {
+    // Assuming you have some logic to select and confirm the booking
+    const selectedSlotId = getSelectedSlot(); // Your logic to get the selected slot
+
+    if (selectedSlotId) {
+        alert(`Slot with ID ${selectedSlotId} booked successfully!`);
+        
+        // After booking, redirect to sloat.html
+        
+    } else {
+        alert("Please select a slot before booking! Click Booking now");
+    }
+}
+
+// Event listener for the "Book Selected Slot" button
+document.getElementById('bookSlotButton').addEventListener('click', function() {
+    bookSlot();
+});
+
+
+        // Fetch slots on page load
+        window.onload = fetchSlots;
+    </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  background-image: url(nature.gif);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+header {
+   
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin-right: 15px;
+}

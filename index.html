@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Vaccination</title>
+    <style>
+        /* Reset some default styles */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+    
+}
+
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+   
+    background-image: url(coronapic.png);
+    
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size:cover;
+  
+}
+
+/* Header styles */
+header {
+    background:lightgreen; /* Green background */
+    color:blue; /* White text */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Navigation styles */
+nav {
+    margin: 15px 0;
+}
+
+nav a {
+    color:blue; /* White text */
+    margin: 0 15px;
+    text-decoration: none; /* Remove underline */
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background:rgb(80, 149, 80); /* Darker green on hover */
+    background-color: red;
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+    text-align: center; /* Center the text */
+    background:transparent; /* White background for main content */
+    max-width: 600px; /* Maximum width */
+    margin: 20px auto; /* Center the main content */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background:transparent; /* Green background */
+    color:black; /* White text */
+    position: relative; /* Allow positioning */
+    bottom: 0; /* Stick to the bottom */
+    width: 100%; /* Full width */
+}
+
+#about{
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%; /* To make it circular */
+    width: 250px; /* Adjust size */
+    height: 250px; /* Adjust size */
+    box-shadow: 8px 8px 12px #68cdca, -8px -8px 12px #ffffff;
+
+    
+}
+
+    </style>
+</head>
+<body>
+    <header>    
+        <h1>COVID-19 Vaccination Appointment System</h1>
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="dashboard.html">Dashboard</a>  
+            <a href="booking.html">Slots Available</a>
+            
+            <a id="open-maps" href="#">Download</a>
+            
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome to the COVID-19 Vaccination System</h2>
+        <p>Book your appointment and download your vaccination certificate.</p>
+        <img id="about" src="govtpic.png" alt="Profile Picture">
+    </main>
+    <footer>
+        <p style="color:red">&copy; 2024 COVID-19 Vaccination System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("open-maps").addEventListener("click", function() {
+            window.open("https://selfregistration.cowin.gov.in/vaccination-certificate", "_blank");
+        });
+    </script>
+    
+
+
+</body>
+</html>

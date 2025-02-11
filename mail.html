@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* General page styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-image: url(coronapic2.png);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size:cover;
+        }
+
+        h2 {
+            color:black;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #68cdca, -5px -5px 10px #ffffff;
+            width: 500px;
+            height: 300px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            resize: none;
+        }
+
+        textarea:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Message styling */
+        #noteMessage {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+            color: #dc3545; /* Red for error */
+        }
+    </style>
+    <title>mail box</title>
+</h>
+<body>
+    <!-- Note Pad Form -->
+    <div>
+        <h2>Write Your Problem</h2>
+        <form id="notePadForm" onsubmit="sendNote(); return false;">
+            <textarea id="noteContent" placeholder="Write your problem here..." required></textarea>
+            <button type="submit">Send </button>
+        </form>
+        <p id="noteMessage"></p>
+    </div>
+
+    <script>
+        function sendNote() {
+            const noteContent = document.getElementById("noteContent").value;
+            const noteMessage = document.getElementById("noteMessage");
+
+            // Prepare email parameters
+            const email = "sumankumarprradhan81@gmail.com"; // Change this to your email address
+            const subject = "New Problem Note";
+            const body = encodeURIComponent(noteContent);
+            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+
+            // Open the user's email client
+            window.location.href = mailtoLink;
+
+            // Clear the textarea and show a success message
+            document.getElementById("noteContent").value = "";
+            noteMessage.textContent = "Note sent successfully!";
+            noteMessage.style.color = "#28a745"; // Green for success
+        }
+    </script>
+</body>
+</html>

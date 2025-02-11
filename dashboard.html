@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard</title>
+    <style>
+        /* style.css */
+
+/* General page styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color:black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    background-image: url(coronapic2.png);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow:5px 5px 10px #68cdca, -5px -5px 10px #ffffff;
+    width: 400px;
+    text-align: center;
+}
+
+h2 {
+    color: #28a745; /* Green color */
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left; /* Align labels to the left */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="date"], 
+input[type="time"], 
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="date"]:focus, 
+input[type="time"]:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#appointmentMessage {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #dc3545; /* Red for error messages */
+}
+
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h2>Your Dashboard</h2>
+        <form id="appointmentForm">
+            <div class="form-group">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Select Time:</label>
+                <input type="time" id="time" required>
+            </div>
+            
+            <button type="submit">Book Appointment</button>
+            <button style="background-color: red;" id="open-maps">Open Google Maps</button>
+           
+        </form>
+        <p id="appointmentMessage"></p>
+    </div>
+    <script>
+        // script.js
+
+document.getElementById("appointmentForm").addEventListener("submit", function(event) {
+    event.preventDefault();  // Prevent the default form submission
+
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const appointmentMessage = document.getElementById("appointmentMessage");
+
+    // Validate input (optional)
+    if (!date || !time) {
+        appointmentMessage.textContent = "Please select both date and time.";
+        return;
+    }
+
+    // Here you would normally send the appointment data to the server
+    // For this example, we will just display a success message
+    appointmentMessage.textContent = `Appointment booked successfully for ${date} at ${time}! search in Map`;
+    appointmentMessage.style.color = "#28a745"; // Change text color to green for success
+});
+document.getElementById("open-maps").addEventListener("click", function() {
+            window.open("https://maps.app.goo.gl/Ahh5rvDUCKmKtMcL7", "_blank");
+        });
+
+    </script>
+</body>
+</html>
